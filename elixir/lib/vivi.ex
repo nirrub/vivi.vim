@@ -1,4 +1,5 @@
 defmodule Vivi do
+  all_elixir_modules = :code.all_loaded |> Stream.map(&(elem(&1, 0) |> to_string)) |> Stream.filter(&String.starts_with?(&1, "Elixir")) |> Enum.map(&String.replace_prefix(&1, "Elixir.", ""))
   defp format_doc_arg({:\\, _, [left, right]}) do
     format_doc_arg(left) <> " \\\\ " <> Macro.to_string(right)
   end
@@ -41,4 +42,3 @@ defmodule Vivi do
     |> Enum.each(&IO.puts/1)
   end
 end
-
